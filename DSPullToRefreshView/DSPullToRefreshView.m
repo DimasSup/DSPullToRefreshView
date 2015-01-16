@@ -214,21 +214,24 @@
 }
 -(void)finishPulling:(BOOL)animated
 {
-	_waitingFinish = NO;
 	_scrollView.scrollEnabled = YES;
 	if(animated)
 	{
-		_imagesForProcessView.hidden = YES;
+		
 		[UIView animateWithDuration:0.3 animations:^{
 			_scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-			
+			_imagesForProcessView.alpha = 0;
 		} completion:^(BOOL finished) {
-		_imagesForProcessView.hidden = NO;
+			_imagesForProcessView.alpha = 1;
+			_waitingFinish = NO;
+			
 		}];
 	}
 	else
 	{
 		_scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+		_waitingFinish = NO;
+		
 	}
 }
 
