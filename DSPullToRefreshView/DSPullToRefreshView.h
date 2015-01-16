@@ -24,7 +24,7 @@ Execute your logic here. When done -  call [view finishPulling];
 /**
  Background view for image
 */
--(UIView*)backgroundForProgressImage;
+-(UIView*)pullingBackgroundForProgressImage;
 
 @end
 
@@ -54,4 +54,7 @@ Execute your logic here. When done -  call [view finishPulling];
  original.x ,original.y -  center position of image indicator on pulling view in prcentage (0 - 1)
  */
 @property(nonatomic)CGRect processImageFrame;
+
+
+@property(nonatomic,copy)UIColor* pullingViewColor;
 @end

@@ -70,6 +70,7 @@
 	_scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
 	_scrollView.contentSize = _scrollView.bounds.size;
 	_scrollView.alwaysBounceVertical = YES;
+	_scrollView.backgroundColor = self.backgroundColor;
 	for (UIView* view in subViews)
 	{
 		[_scrollView addSubview:view];
@@ -80,13 +81,18 @@
 	
 	[self updateProcessImageView];
 }
+-(void)setBackgroundColor:(UIColor *)backgroundColor
+{
+	[super setBackgroundColor:backgroundColor];
+	_scrollView.backgroundColor = backgroundColor;
+}
 -(void)updateProcessImageView
 {
 	CGRect rect = CGRectMake(_pullContentView.bounds.origin.x+_pullContentView.frame.size.width*self.processImageFrame.origin.x - _processImageFrame.size.width/2, _pullContentView.bounds.origin.y+_pullViewSize*self.processImageFrame.origin.y - _processImageFrame.size.height/2, _processImageFrame.size.width, _processImageFrame.size.height);
 	_imagesForProcessView.frame = rect;
-	if(self.delegate && [self.delegate respondsToSelector:@selector(backgroundForProgressImage)])
+	if(self.delegate && [self.delegate respondsToSelector:@selector(pullingBackgroundForProgressImage)])
 	{
-		UIView* background = [self.delegate backgroundForProgressImage];
+		UIView* background = [self.delegate pullingBackgroundForProgressImage];
 		if(background!=_backgroundImg)
 		{
 			[_backgroundImg removeFromSuperview];
@@ -220,6 +226,16 @@
 	}
 }
 
+-(void)setPullingViewColor:(UIColor *)pullingViewColor
+{
+	if(_pullingViewColor!=pullingViewColor)
+	{
+		[_pullingViewColor release];
+		_pullingViewColor = [pullingViewColor copy];
+	}
+	_pullContentView.backgroundColor = _pullingViewColor;
+}
+
 -(void)dealloc
 {
 	[_scrollView release];
@@ -228,6 +244,7 @@
 	[_animateImage release];
 	[_pullContentView release];
 	[_backgroundImg release];
+	[_pullingViewColor release];
 	[super dealloc];
 }
 @end
