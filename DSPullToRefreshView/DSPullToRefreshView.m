@@ -61,6 +61,7 @@
 	_pullContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 0)];
 	_pullContentView.backgroundColor = [UIColor colorWithRed:0.294 green:0.569 blue:0.804 alpha:1.000];
 	_pullContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
+	_pullContentView.clipsToBounds = YES;
 	[self addSubview:_pullContentView];
 	
 	_imagesForProcessView = [[UIImageView alloc] init];
@@ -71,6 +72,7 @@
 	_scrollView.contentSize = _scrollView.bounds.size;
 	_scrollView.alwaysBounceVertical = YES;
 	_scrollView.backgroundColor = [UIColor clearColor];
+	
 	for (UIView* view in subViews)
 	{
 		[_scrollView addSubview:view];
@@ -216,8 +218,12 @@
 	_scrollView.scrollEnabled = YES;
 	if(animated)
 	{
+		_imagesForProcessView.hidden = YES;
 		[UIView animateWithDuration:0.3 animations:^{
 			_scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+			
+		} completion:^(BOOL finished) {
+		_imagesForProcessView.hidden = NO;
 		}];
 	}
 	else
