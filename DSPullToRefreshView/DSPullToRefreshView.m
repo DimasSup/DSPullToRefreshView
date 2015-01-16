@@ -23,31 +23,31 @@
 @synthesize animatedImage = _animateImage;
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-				[self createViews];
-        // Initialization code
-    }
-    return self;
+	self = [super initWithFrame:frame];
+	if (self) {
+		[self createViews];
+		// Initialization code
+	}
+	return self;
 }
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    self = [super initWithCoder:coder];
-    if (self)
+	self = [super initWithCoder:coder];
+	if (self)
 	{
 		[self createViews];
-        
-    }
-    return self;
+		
+	}
+	return self;
 }
 - (instancetype)init
 {
-    self = [super init];
-    if (self) {
+	self = [super init];
+	if (self) {
 		
 		[self createViews];
-    }
-    return self;
+	}
+	return self;
 }
 
 -(void)createViews
@@ -69,6 +69,7 @@
 	
 	
 	_scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+	_scrollView.autoresizingMask = UIViewAutoResizingMaskFill;
 	_scrollView.contentSize = _scrollView.bounds.size;
 	_scrollView.alwaysBounceVertical = YES;
 	_scrollView.backgroundColor = [UIColor clearColor];
@@ -118,6 +119,7 @@
 -(void)setFrame:(CGRect)frame
 {
 	[super setFrame:frame];
+	_scrollView.contentSize =self.bounds.size;
 	[self updateProcessImageView];
 }
 

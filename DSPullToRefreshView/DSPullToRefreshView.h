@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 @class DSPullToRefreshView;
 
+#define UIViewAutoResizingMaskFill  UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleBottomMargin
+
 @protocol DSPullToRefreshViewDelegate <NSObject>
 /**
  Calling when pulling in progress but not finished
