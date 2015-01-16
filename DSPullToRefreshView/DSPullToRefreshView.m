@@ -70,7 +70,7 @@
 	_scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
 	_scrollView.contentSize = _scrollView.bounds.size;
 	_scrollView.alwaysBounceVertical = YES;
-	_scrollView.backgroundColor = self.backgroundColor;
+	_scrollView.backgroundColor = [UIColor clearColor];
 	for (UIView* view in subViews)
 	{
 		[_scrollView addSubview:view];
@@ -84,7 +84,7 @@
 -(void)setBackgroundColor:(UIColor *)backgroundColor
 {
 	[super setBackgroundColor:backgroundColor];
-	_scrollView.backgroundColor = backgroundColor;
+	
 }
 -(void)updateProcessImageView
 {
