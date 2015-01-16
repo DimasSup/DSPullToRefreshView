@@ -101,6 +101,12 @@
 		_label.text = @"Normal";
 	});
 }
+-(UIView *)backgroundForProgressImage
+{
+	UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+	view.backgroundColor = [UIColor redColor];
+	return [view autorelease];
+}
 
 -(void)dealloc
 {

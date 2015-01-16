@@ -20,6 +20,12 @@ Execute your logic here. When done -  call [view finishPulling];
  */
 -(void)pullingComplete:(DSPullToRefreshView*)view;
 
+
+/**
+ Background view for image
+*/
+-(UIView*)backgroundForProgressImage;
+
 @end
 
 @interface DSPullToRefreshView : UIView
@@ -41,6 +47,9 @@ Execute your logic here. When done -  call [view finishPulling];
  Images for show on pulling indicator
  */
 @property(nonatomic,retain)NSArray* imagesForProcess;
+
+@property(nonatomic,retain)UIImage* animatedImage;
+
 /**
  original.x ,original.y -  center position of image indicator on pulling view in prcentage (0 - 1)
  */

@@ -15,11 +15,12 @@
 	UIImageView* _imagesForProcessView;
 	UIImage* _animateImage;
 	BOOL _waitingFinish;
+	UIView* _backgroundImg;
 }
 @end
 
 @implementation DSPullToRefreshView
-
+@synthesize animatedImage = _animateImage;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -83,6 +84,27 @@
 {
 	CGRect rect = CGRectMake(_pullContentView.bounds.origin.x+_pullContentView.frame.size.width*self.processImageFrame.origin.x - _processImageFrame.size.width/2, _pullContentView.bounds.origin.y+_pullViewSize*self.processImageFrame.origin.y - _processImageFrame.size.height/2, _processImageFrame.size.width, _processImageFrame.size.height);
 	_imagesForProcessView.frame = rect;
+	if(self.delegate && [self.delegate respondsToSelector:@selector(backgroundForProgressImage)])
+	{
+		UIView* background = [self.delegate backgroundForProgressImage];
+		if(background!=_backgroundImg)
+		{
+			[_backgroundImg removeFromSuperview];
+			[_backgroundImg release];
+			_backgroundImg = [background retain];
+			[_pullContentView addSubview:_backgroundImg];
+			[_pullContentView sendSubviewToBack:_backgroundImg];
+		}
+		
+		
+	}
+	if(_backgroundImg)
+	{
+		CGRect bRect = _backgroundImg.frame;
+		bRect.origin.x = rect.origin.x+rect.size.width/2 - bRect.size.width/2;
+		bRect.origin.y = rect.origin.y+rect.size.height/2 - bRect.size.height/2;
+		_backgroundImg.frame = bRect;
+	}
 }
 
 -(void)setFrame:(CGRect)frame
@@ -164,6 +186,20 @@
 	}
 	
 }
+
+-(void)setAnimatedImage:(UIImage *)animatedImage
+{
+	if(_animateImage!=animatedImage)
+	{
+		[_animateImage release];
+		_animateImage = [animatedImage retain];
+	}
+	if(_waitingFinish)
+	{
+		_imagesForProcessView.image = _animateImage;
+	}
+	
+}
 -(void)finishPulling
 {
 	[self finishPulling:YES];
@@ -180,7 +216,7 @@
 	}
 	else
 	{
-			_scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+		_scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 	}
 }
 
@@ -191,6 +227,7 @@
 	[_imagesForProcessView release];
 	[_animateImage release];
 	[_pullContentView release];
+	[_backgroundImg release];
 	[super dealloc];
 }
 @end
